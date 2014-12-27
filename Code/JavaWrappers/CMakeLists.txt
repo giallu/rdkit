@@ -26,6 +26,7 @@ if(WIN32)
           set(RDKit_Wrapper_Libs AvalonLib  avalon_clib ${RDKit_Wrapper_Libs})
         endif(RDK_BUILD_AVALON_SUPPORT)
 else()
+    if(RDK_INSTALL_STATIC_LIBS)
 	set(RDKit_Wrapper_Libs
         FMCS_static
         FileParsers_static SmilesParse_static
@@ -44,6 +45,26 @@ else()
         if(RDK_BUILD_AVALON_SUPPORT)
           set(RDKit_Wrapper_Libs AvalonLib_static  avalon_clib_static ${RDKit_Wrapper_Libs})
         endif(RDK_BUILD_AVALON_SUPPORT)
+    else(RDK_INSTALL_STATIC_LIBS)
+        set(RDKit_Wrapper_Libs
+
+        FileParsers SmilesParse
+	Depictor SubstructMatch ChemReactions Fingerprints ChemTransforms
+	Subgraphs GraphMol DataStructs Descriptors PartialCharges MolTransforms
+        DistGeomHelpers DistGeometry ForceFieldHelpers ForceField
+	EigenSolvers
+	Optimizer
+	MolAlign
+	Alignment
+        SimDivPickers
+	RDGeometryLib RDGeneral )
+        if(RDK_BUILD_INCHI_SUPPORT)
+          set(RDKit_Wrapper_Libs RDInchiLib inchi ${RDKit_Wrapper_Libs})
+        endif(RDK_BUILD_INCHI_SUPPORT)
+        if(RDK_BUILD_AVALON_SUPPORT)
+          set(RDKit_Wrapper_Libs AvalonLib avalon_clib ${RDKit_Wrapper_Libs})
+        endif(RDK_BUILD_AVALON_SUPPORT)
+    endif(RDK_INSTALL_STATIC_LIBS)
 endif()
 
 if(RDK_BUILD_SWIG_JAVA_WRAPPER)
